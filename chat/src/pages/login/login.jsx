@@ -1,26 +1,98 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./login.css";
+import { useForm } from 'react-hook-form'
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaLock } from "react-icons/fa";
+import Animated from "./animation/animated";
 
 export default function Login() {
+    //Biblioteca para la gestión de formularios
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const { login, isAuthenticated, error } = useAuth();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/dashboard");
+        }
+    });
+
+    //Función para enviar el formulario a la API
+    const onSubmit = handleSubmit(async (values) => {
+        login(values);
+    });
 
     return (
-        <>
-            <div className="login-container">
-                <h2>Iniciar sesión</h2>
+        <div className="wrapper">
+            <div className="wrapper-basic wrapper-left">
+                <form onSubmit={onSubmit} className="form">
+                    <h3 className="title-login">Nos alegra verte por aqui</h3>
+                    <p className="subtext-login">
+                        Ingresa ahora y no te pierdas nada de nuestra comunidad
+                    </p>
+                    <div className="container-align">
+                        <div className="inputs-container">
+                            <p>Correo</p>
+                            <div className="input-box">
+                                <input type="text" {...register("email", {required: true})} placeholder="usuario@example.com" />
+                                <FaUser className="icon" />
+                            </div>
+                        </div>
+                        <div className="inputs-container">
+                            <div className="texts-password">
+                                <p>Contraseña</p>
+                                <a href="#" className="forms-links">
+                                    Olvidaste tu contraseña?
+                                </a>
+                            </div>
+                            <div className="input-box">
+                                <input
+                                    type="password"
+                                    {...register("password", {required: true})} 
+                                    placeholder="Debe tener por lo menos 6 caracteres"
+                                />
+                                <FaLock className="icon" />
+                            </div>
+                        </div>
+                        <div className="checkbox-container">
+                            <input type="checkbox" required />
+                            <label>
+                                He leído y acepto los{" "}
+                                <a href="#" className="forms-links">
+                                    términos y condiciones
+                                </a>
+                            </label>
+                        </div>
+                        <button type="submit" id="login-btn">
+                            Iniciar sesión
+                        </button>
+                        {
+                            error.map((err, index) => (
+                                <div key={index}>
+                                    <span style={{ color: 'red' }}>{err}</span>
+                                </div>
+                            ))
+                        }
+                    </div>
 
-                <form action="#">
-                    <div className="input-group">
-                        <label htmlFor="username">Usuario:</label>
-                        <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario" required />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required />
-                    </div>
-                    <button type="submit">Iniciar Sesión</button>
+                    <p style={{ textAlign: "center", width: "100%" }}>
+                        No estas registrado?{" "}
+                        <a href="#" className="forms-links">
+                            Registrar
+                        </a>
+                    </p>
                 </form>
             </div>
-
-        </>
-    )
+            <div className="wrapper-basic wrapper-right">
+                <Animated />
+            </div>
+        </div>
+    );
 }
