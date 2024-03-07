@@ -1,23 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './pages/login/login';
-import Dashboard from './pages/dashboard/Dashboard';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AuthProvider } from './context/AuthContext';
+import LoginForm from './Components/LoginForm/LoginForm';
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <div >
+      <LoginForm/>
 
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-        
-      </BrowserRouter>
-    </AuthProvider>
-
+    </div>
   );
 }
 
