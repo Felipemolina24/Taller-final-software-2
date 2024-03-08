@@ -63,12 +63,12 @@ export default function Login() {
                                     placeholder="Digite su contraseña"
                                 />
                                 <FaLock className="icon" />
-                                    {
-                                        errors.password && (
-                                            <p style={{ color: 'red', padding: '5px' }}> La contraseña es obligatoria </p>
-                                        )
-                                    }
-                    
+                                {
+                                    errors.password && (
+                                        <p style={{ color: 'red', padding: '5px' }}> La contraseña es obligatoria </p>
+                                    )
+                                }
+
                             </div>
                         </div>
                         <div className="checkbox-container">
@@ -83,14 +83,13 @@ export default function Login() {
                         <button type="submit" id="login-btn">
                             Iniciar sesión
                         </button>
-
-                        {
-                            error.map((err, index) => (
-                                <div key={index} >
-                                    <span style={{ color: 'red', fontWeight: 'semibold' }}>{err}</span>
-                                </div>
-                            ))
-                        }
+                            {
+                                error.map((err, index) => (
+                                    <div key={index} >
+                                        <span style={{ color: 'red', fontWeight: 'semibold' }}>{err}</span>
+                                    </div>
+                                ))
+                            }
 
                     </div>
 
