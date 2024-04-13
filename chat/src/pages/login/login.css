@@ -18,12 +18,12 @@
 }
 
 .wrapper-right {
-    background: #37338c;
+    background: #0047b2 !important;
     position: relative;
 }
 
 #login-btn {
-    background-color: #4f46e5;
+    background-color: #0047b2;
     width: 100%;
     height: 65px;
     border: none;
@@ -115,7 +115,7 @@
 .forms-links {
     border: none;
     text-decoration: none;
-    color: #4f46e5;
+    color: #0047b2 !important;
 }
 
 .forms-links:hover {
@@ -123,5 +123,5 @@
 }
 
 .forms-links:visited {
-    color: #4f46e5;
+    color: #0047b2;
 }
