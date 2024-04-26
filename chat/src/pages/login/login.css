@@ -1,23 +1,23 @@
-.wrapper {
+.wrapper-login {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: row;
 }
 
-.wrapper-basic {
+.wrapper-login-basic {
     width: 50%;
     height: 100%;
 }
 
-.wrapper-left {
+.wrapper-login-left {
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
 }
 
-.wrapper-right {
+.wrapper-login-right {
     background: #0047b2 !important;
     position: relative;
 }
@@ -106,7 +106,7 @@
     font-size: 16px;
 }
 
-.wrapper .register-link {
+.wrapper-login .register-link {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
