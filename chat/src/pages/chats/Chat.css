@@ -79,8 +79,11 @@
 
 .chat-user-container {
     width: 70%;
+    height: 100%; /* Asegurarse de que el contenedor padre tenga altura definida */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Esto ayudará a empujar el área de mensajes hacia abajo */
 }
-
 .user-chat-top-info {
     background-color: white;
     border-bottom: 1px solid rgb(234, 234, 234);
@@ -91,13 +94,39 @@
     padding-left: 5%;
     gap: 10px;
 }
-.user-chat-bottom-container {
-    background-color: #FAFAFA;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.message-container {
+    max-width: 55%;
+    padding: 8px;
+    margin: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    
 }
+
+.sent {
+    background-color: #136DF6; /* Color de fondo para mensajes enviados */
+    align-self: flex-end;
+    margin-right: 20px;
+    border-radius: 10px 0px 10px 10px;
+}
+
+.received {
+    background-color: #888; /* Color de fondo para mensajes recibidos */
+    align-self: flex-start;
+    margin-left: 20px;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.user-chat-bottom-container {
+    flex-grow: 1; /* Asegura que el contenedor pueda expandirse */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    display: flex;
+    flex-direction: column; /* Apila los mensajes desde arriba hacia abajo */
+    align-items: flex-start; /* Alinea los mensajes a la izquierda */
+}
+
 .user-chat-bottom-chats {
     border-top: 1px solid rgb(234, 234, 234);
     height: 10%;
