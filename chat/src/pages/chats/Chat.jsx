@@ -17,6 +17,7 @@ export default function Chat() {
     const { register, handleSubmit, reset } = useForm()
 
     const onSubmit = handleSubmit((data) => {
+        console.log(data);
         socket.emit('message', data)
         const newMessage = {
             body: data.message,

@@ -7,12 +7,13 @@ export const register = async (req, res) => {
     //Recibir los datos desde el cuerpo de la solictud
     const { usuario, email, password } = req.body
 
+    console.log(usuario, email, password);
     const user = await User.findOne({ email })
 
     //Manejador de errores
     try {
 
-        if ( user) return res.status(400).json(["El correo ya se encuentra registrado"])
+        if (user) return res.status(400).json(["El correo ya se encuentra registrado"])
 
         //se encripta la contraseña con la biblioteca bcrypt
         const encryptedPassword = await bcrypt.hash(password, 10)
@@ -51,18 +52,18 @@ export const login = async (req, res) => {
     const { email, password } = req.body
 
     try {
-   
+
         //Buscamos el usuario en la base de datos por email
         const userFound = await User.findOne({ email })
 
         //si el usuario no existe devolvemos un mensaje
-        if (!userFound) return res.status(400).json(["Usuario no encontrado"] )
+        if (!userFound) return res.status(400).json(["Usuario no encontrado"])
 
         //comparamos la contraseña encriptada de la base de datos con la introducida por el usuario
         const isMatch = await bcrypt.compare(password, userFound.password)
 
         //si la contraseña no coincide devolvemos un mensaje
-        if (!isMatch) return res.status(400).json( ["Contraseña incorrecta"] )
+        if (!isMatch) return res.status(400).json(["Contraseña incorrecta"])
 
         //si el usuario existe y la contraseña coincide creamos el token
         const token = await createAccessToken(
@@ -79,9 +80,24 @@ export const login = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 
+}
 
-
-
+//buscar usuario por email
+export const getUserByEmail = async (req, res) => {
+    const { email } = req.body
+    console.log('email', email);
+    try {
+        const userFoundEmail = await User.findOne({ email })
+        console.log('user', userFoundEmail);
+        if (!userFoundEmail) return res.status(400).json({ message: "Usuario no encontrado" })
+        res.json({
+            id: userFoundEmail._id,
+            usuario: userFoundEmail.usuario,
+            email: userFoundEmail.email
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
 }
 
 //Controlador para cerrar sesion
@@ -96,7 +112,7 @@ export const logout = (req, res) => {
 
 export const profile = async (req, res) => {
     const userFound = await User.findById(req.user.id)
-    
+    console.log('userFound', userFound);
     if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
 
     return res.json({
@@ -104,5 +120,18 @@ export const profile = async (req, res) => {
         user: userFound.usuario,
         email: userFound.email
     })
-    
+
+}
+
+export const deleteUser = async (req, res) => {
+    const { email } = req.body
+    console.log('emailDELETE', email);
+    try {
+        const userFound = await User.findOne({ email })
+        if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" })
+        await User.findByIdAndDelete(userFound._id)
+        res.json({ message: "Usuario eliminado" })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
 }

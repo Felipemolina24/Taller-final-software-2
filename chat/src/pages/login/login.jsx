@@ -26,7 +26,7 @@ export default function Login() {
 
     //Función para enviar el formulario a la API
     const onSubmit = handleSubmit(async (values) => {
-        login(values);
+        login(values);       
     });
 
     return (

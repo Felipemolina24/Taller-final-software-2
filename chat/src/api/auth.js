@@ -5,3 +5,5 @@ const API_URL = "http://localhost:4000/api"
 export const loginRequest = (user) => axios.post(`${API_URL}/login`, user);
 
 export const registerRequest = (user) => axios.post(`${API_URL}/register`, user)
+
+export const getUser = (email) => axios.post(`${API_URL}/deleteUser`, email)
